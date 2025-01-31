@@ -1,26 +1,19 @@
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import Pizza from "./Pizza";
+import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { routeTree } from "./routeTree.gen";
+
+const router = createRouter({ routeTree });
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <div>
-      <h1>Padre Gino's - Order Now</h1>
-      <Pizza
-        name="Peperoni"
-        description="pep. cheese, n stuff"
-        image={"public/pizzas/pepperoni.webp"}
-      />
-      <Pizza
-        name="Peperoni"
-        description="pep. cheese, n stuff"
-        image={"public/pizzas/pepperoni.webp"}
-      />
-      <Pizza
-        name="Peperoni"
-        description="pep. cheese, n stuff"
-        image={"public/pizzas/pepperoni.webp"}
-      />
-    </div>
+    <StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </StrictMode>
   );
 };
 
